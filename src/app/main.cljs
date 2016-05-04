@@ -7,4 +7,4 @@
 (defn init []
   (db/init!)
   (set! js/container.style.display nil)
-  (render [app/page] js/container))
+  (render [#'app/page] js/container))
