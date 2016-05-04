@@ -11,7 +11,7 @@
                  [pandeiro/boot-http          "0.7.3"     :scope "test"]
                  [org.clojure/clojurescript   "1.8.40"]
                  [re-frame                    "0.7.0"]
-                 [reagent                     "0.6.0-alpha"]])
+                 [reagent                     "0.6.0-alpha2"]])
 
 (require
  '[adzerk.boot-cljs            :refer [cljs]]
