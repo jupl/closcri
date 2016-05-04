@@ -9,7 +9,9 @@
                  [jupl/boot-cljs-devtools     "0.1.0"     :scope "test"]
                  [org.clojure/clojure         "1.8.0"     :scope "test"]
                  [pandeiro/boot-http          "0.7.3"     :scope "test"]
-                 [org.clojure/clojurescript   "1.8.40"]])
+                 [org.clojure/clojurescript   "1.8.40"]
+                 [re-frame                    "0.7.0"]
+                 [reagent                     "0.6.0-alpha"]])
 
 (require
  '[adzerk.boot-cljs            :refer [cljs]]
@@ -20,7 +22,7 @@
 
 (ns-unmap 'boot.user 'test)
 
-(task-options! reload {:on-jsload 'app.main/init}
+(task-options! reload {:on-jsload 'reagent.core/force-update-all}
                serve {:dir "target"}
                test-cljs {:js-env :phantom})
 

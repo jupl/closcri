@@ -1,13 +1,10 @@
 (ns app.main
-  (:require [app.config :as config]))
-
-(defonce load-time (.toLocaleString (js/Date.)))
+  (:require [app.component :as app]
+            [app.config :as config]
+            [app.db :as db]
+            [reagent.core :refer [render]]))
 
 (defn init []
+  (db/init!)
   (set! js/container.style.display nil)
-  (set! js/container.style.backgroundColor "gainsboro")
-  (let [update-time (.toLocaleString (js/Date.))
-        message (if config/production
-                  (str "Loaded at " load-time ".")
-                  (str "Loaded at " load-time ". Updated at " update-time))]
-    (set! js/container.innerHTML message)))
+  (render [app/page] js/container))
