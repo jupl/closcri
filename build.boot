@@ -24,18 +24,15 @@
                serve {:dir "target"}
                test-cljs {:js-env :phantom})
 
-(def closure-options (atom {:closure-defines {}
-                            :output-wrapper :true}))
+(def closure-opts (atom {:output-wrapper :true}))
 
 (deftask build []
-  (swap! closure-options
-         assoc-in
-         [:closure-defines 'app.config/production] true)
+  (swap! closure-opts assoc-in [:closure-defines 'app.config/production] true)
   (comp
    (speak)
    (cljs :optimizations :advanced
-         :compiler-options @closure-options)
-   (sift :include #{#"\.(out|cljs\.edn)"} :invert true)))
+         :compiler-options @closure-opts)
+   (sift :include #{#"\.out" #"\.cljs\.edn$" #"^\." #"/\."} :invert true)))
 
 (deftask dev []
   (comp
@@ -46,8 +43,8 @@
    (cljs-devtools)
    (cljs :source-map true
          :optimizations :none
-         :compiler-options @closure-options)
-   (sift :include #{#"\.cljs\.edn"} :invert true)))
+         :compiler-options @closure-opts)
+   (sift :include #{#"\.cljs\.edn$"} :invert true)))
 
 (deftask test []
   (comp
