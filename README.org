@@ -1,0 +1,43 @@
+* Closri
+** About
+This is a template for creating and developing ClojureScript applications. The original intent of this project is for myself to get acquainted with the world of Clojure and ClojureScript and have a personal quick starter.
+** Goals and Features
+- Baseline yet featureful environment for working with ClojureScript
+- Use [[http://boot-clj.com/][Boot]] for easy extensibility and customization
+- Development tools/setup out of the box
+  - Live reloading, hot loading
+  - Source maps
+  - REPL using [[https://github.com/binaryage/dirac][Dirac]]
+  - Testing and test watching
+  - [[https://github.com/bhauman/devcards][Devcards]] included (can be used with testing)
+- Standalone asset builds
+- Standalone devcards builds
+- Linting and code analyzing can be checked
+** Quick Start
+1. Follow the [[https://github.com/boot-clj/boot#install][instructions for installing Boot]]
+2. Clone/download this repository
+3. Run one of tasks defined below. If this is your first time using this dependencies will automatically be downloaded.
+4. View project structure and customize =build.boot= to fit your needs.
+For example, you can run ~boot dev~ to start the development environment. From there you can visit =http://localhost:3000= to view the current build and =http://localhost:3000/devcards.html= to view devcards.
+** Project structure
+| Directories/files             | Description                                                         |
+|-------------------------------+---------------------------------------------------------------------|
+| =resources/**=                | Static assets or files that map to a built file                     |
+| =resources/**/*.cljs.edn=     | [[https://github.com/adzerk-oss/boot-cljs/wiki/Usage#multiple-builds][Define]] a JS file that will be compiled from =src=                   |
+| =resources/devcards.cljs.edn= | Define that references files with devcards in them                  |
+| =src/**/*.cljs=               | ClojureScript source files                                          |
+| =src/**/*_test.cljs=          | ClojureScript test files                                            |
+| =src/app/config.cljs=         | Settings that can be set by the build tool using ~:closure-defines~ |
+** Tasks
+*** =dev=
+Start the development server complete with live updates, source maps, REPL, and devcards.
+*** =build=
+Create a production build with optimizations. Devcard related items are omitted.
+*** =devcards=
+Create a standalone build of devcards only, ready to share.
+*** =test=
+Run all CLJS tests once. If tests are defined with devcards, those are included.
+*** =tdd=
+Run all CLJS tests once and run again on file changes. If tests are defined with devcards, those are included.
+*** =analyze=
+Check and analyze source code.
