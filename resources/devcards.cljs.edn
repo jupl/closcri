@@ -1,0 +1,2 @@
+{:require [app.main-test]
+ :init-fns [devcards.core/start-devcard-ui!]}

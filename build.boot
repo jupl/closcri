@@ -6,6 +6,7 @@
                  [binaryage/devtools          "0.6.1"     :scope "test"]
                  [binaryage/dirac             "0.3.0"     :scope "test"]
                  [crisptrutski/boot-cljs-test "0.2.1"     :scope "test"]
+                 [devcards                    "0.2.1-6"   :scope "test"]
                  [jupl/boot-cljs-devtools     "0.1.0"     :scope "test"]
                  [org.clojure/clojure         "1.8.0"     :scope "test"]
                  [pandeiro/boot-http          "0.7.3"     :scope "test"]
@@ -30,11 +31,13 @@
   (swap! closure-opts assoc-in [:closure-defines 'app.config/production] true)
   (comp
    (speak)
+   (sift :include #{#"^devcards"} :invert true)
    (cljs :optimizations :advanced
          :compiler-options @closure-opts)
    (sift :include #{#"\.out" #"\.cljs\.edn$" #"^\." #"/\."} :invert true)))
 
 (deftask dev []
+  (swap! closure-opts assoc :devcards true)
   (comp
    (serve)
    (watch)
@@ -45,6 +48,14 @@
          :optimizations :none
          :compiler-options @closure-opts)
    (sift :include #{#"\.cljs\.edn$"} :invert true)))
+
+(deftask devcards []
+  (comp
+   (speak)
+   (sift :include #{#"^devcards" #"/" #"\.clj(s|c)$"})
+   (cljs :optimizations :advanced
+         :compiler-options @closure-opts)
+   (sift :include #{#"\.out" #"\.cljs\.edn$"} :invert true)))
 
 (deftask test []
   (comp
