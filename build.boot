@@ -27,7 +27,7 @@
                serve {:dir "target"}
                test-cljs {:js-env :phantom})
 
-(def closure-opts (atom {:output-wrapper :true}))
+(def closure-opts (atom {:devcards true :output-wrapper :true}))
 
 (deftask build []
   (swap! closure-opts assoc-in [:closure-defines 'app.config/production] true)
@@ -39,7 +39,6 @@
    (sift :include #{#"\.out" #"\.cljs\.edn$" #"^\." #"/\."} :invert true)))
 
 (deftask dev []
-  (swap! closure-opts assoc :devcards true)
   (comp
    (serve)
    (watch)
