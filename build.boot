@@ -1,15 +1,17 @@
 (set-env!
  :source-paths #{"src"}
  :resource-paths #{"resources"}
- :dependencies '[[adzerk/boot-cljs            "1.7.228-1" :scope "test"]
-                 [adzerk/boot-reload          "0.4.7"     :scope "test"]
-                 [binaryage/devtools          "0.6.1"     :scope "test"]
-                 [binaryage/dirac             "0.3.0"     :scope "test"]
-                 [crisptrutski/boot-cljs-test "0.2.1"     :scope "test"]
-                 [devcards                    "0.2.1-6"   :scope "test"]
-                 [jupl/boot-cljs-devtools     "0.1.0"     :scope "test"]
-                 [org.clojure/clojure         "1.8.0"     :scope "test"]
-                 [pandeiro/boot-http          "0.7.3"     :scope "test"]
+ :dependencies '[[adzerk/boot-cljs            "1.7.228-1"      :scope "test"]
+                 [adzerk/boot-reload          "0.4.7"          :scope "test"]
+                 [boot/core                   "2.4.2"          :scope "test"]
+                 [binaryage/devtools          "0.6.1"          :scope "test"]
+                 [binaryage/dirac             "0.3.0"          :scope "test"]
+                 [crisptrutski/boot-cljs-test "0.2.1"          :scope "test"]
+                 [devcards                    "0.2.1-6"        :scope "test"]
+                 [jupl/boot-cljs-devtools     "0.1.0"          :scope "test"]
+                 [org.clojure/clojure         "1.8.0"          :scope "test"]
+                 [pandeiro/boot-http          "0.7.3"          :scope "test"]
+                 [tolitius/boot-check         "0.1.2-SNAPSHOT" :scope "test"]
                  [org.clojure/clojurescript   "1.8.40"]])
 
 (require
@@ -17,7 +19,8 @@
  '[adzerk.boot-reload          :refer [reload]]
  '[crisptrutski.boot-cljs-test :refer [test-cljs]]
  '[jupl.boot-cljs-devtools     :refer [cljs-devtools]]
- '[pandeiro.boot-http          :refer [serve]])
+ '[pandeiro.boot-http          :refer [serve]]
+ '[tolitius.boot-check         :as    check])
 
 (ns-unmap 'boot.user 'test)
 
@@ -55,6 +58,14 @@
    (cljs :optimizations :advanced
          :compiler-options @closure-opts)
    (sift :include #{#"\.out" #"\.cljs\.edn$"} :invert true)))
+
+(deftask analyze []
+  (comp
+   (sift :include #{#"\.clj(s|c)$"})
+   (check/with-yagni)
+   (check/with-eastwood)
+   (check/with-kibit)
+   (check/with-bikeshed)))
 
 (deftask test []
   (comp
