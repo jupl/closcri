@@ -4,8 +4,9 @@
  :dependencies '[[adzerk/boot-cljs            "1.7.228-1" :scope "test"]
                  [adzerk/boot-reload          "0.4.7"     :scope "test"]
                  [binaryage/devtools          "0.6.1"     :scope "test"]
-                 [binaryage/dirac             "0.2.0"     :scope "test"]
+                 [binaryage/dirac             "0.3.0"     :scope "test"]
                  [crisptrutski/boot-cljs-test "0.2.1"     :scope "test"]
+                 [devcards                    "0.2.1-6"   :scope "test"]
                  [jupl/boot-cljs-devtools     "0.1.0"     :scope "test"]
                  [org.clojure/clojure         "1.8.0"     :scope "test"]
                  [pandeiro/boot-http          "0.7.3"     :scope "test"]
@@ -26,20 +27,19 @@
                serve {:dir "target"}
                test-cljs {:js-env :phantom})
 
-(def closure-options (atom {:closure-defines {}
-                            :output-wrapper :true}))
+(def closure-opts (atom {:output-wrapper :true}))
 
 (deftask build []
-  (swap! closure-options
-         assoc-in
-         [:closure-defines 'app.config/production] true)
+  (swap! closure-opts assoc-in [:closure-defines 'app.config/production] true)
   (comp
    (speak)
+   (sift :include #{#"^devcards"} :invert true)
    (cljs :optimizations :advanced
-         :compiler-options @closure-options)
-   (sift :include #{#"\.(out|cljs\.edn)"} :invert true)))
+         :compiler-options @closure-opts)
+   (sift :include #{#"\.out" #"\.cljs\.edn$" #"^\." #"/\."} :invert true)))
 
 (deftask dev []
+  (swap! closure-opts assoc :devcards true)
   (comp
    (serve)
    (watch)
@@ -48,8 +48,16 @@
    (cljs-devtools)
    (cljs :source-map true
          :optimizations :none
-         :compiler-options @closure-options)
-   (sift :include #{#"\.cljs\.edn"} :invert true)))
+         :compiler-options @closure-opts)
+   (sift :include #{#"\.cljs\.edn$"} :invert true)))
+
+(deftask devcards []
+  (comp
+   (speak)
+   (sift :include #{#"^devcards" #"/" #"\.clj(s|c)$"})
+   (cljs :optimizations :advanced
+         :compiler-options @closure-opts)
+   (sift :include #{#"\.out" #"\.cljs\.edn$"} :invert true)))
 
 (deftask test []
   (comp

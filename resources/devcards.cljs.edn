@@ -1,0 +1,2 @@
+{:require [app.component-test]
+ :init-fns [devcards.core/start-devcard-ui!]}
