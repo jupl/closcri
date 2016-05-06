@@ -39,11 +39,16 @@
          :compiler-options @closure-opts)
    (sift :include #{#"\.out" #"\.cljs\.edn$" #"^\." #"/\."} :invert true)))
 
-(deftask dev []
+(deftask dev
+  [d no-devcards bool "Flag to indicate if devcards should be excluded. Defaults to false."
+   p port PORT   int  "The port number to start the server in."]
   (comp
-   (serve)
+   (serve :port port)
    (watch)
    (speak)
+   (if no-devcards
+     (sift :include #{#"^devcards"} :invert true)
+     identity)
    (reload)
    (cljs-devtools)
    (cljs :source-map true

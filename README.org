@@ -29,8 +29,8 @@ For example, you can run ~boot dev~ to start the development environment. From t
 | =src/**/*_test.cljs=          | ClojureScript test files                                            |
 | =src/app/config.cljs=         | Settings that can be set by the build tool using ~:closure-defines~ |
 ** Tasks
-*** =dev=
-Start the development server complete with live updates, source maps, REPL, and devcards.
+*** =dev [-d] [-p PORT ]=
+Start the development server complete with live updates, source maps, REPL, and devcards. If you want to omit devcards use the =-d= option. To run the server under a different port number use the =-p= option. (example to run server in port 8000: =boot dev -p 8000=)
 *** =build=
 Create a production build with optimizations. Devcard related items are omitted.
 *** =devcards=
