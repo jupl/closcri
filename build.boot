@@ -77,9 +77,3 @@
   (comp
    (speak)
    (test-cljs)))
-
-(deftask tdd []
-  (comp
-   (watch)
-   (speak)
-   (test-cljs)))
