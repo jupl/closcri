@@ -1,6 +1,9 @@
 * Closri
 ** About
 This is a template for creating and developing ClojureScript applications. The original intent of this project is for myself to get acquainted with the world of Clojure and ClojureScript and have a personal quick starter.
+** Variants
+- [[https://github.com/jupl/closcri][Base]]
+- [[https://github.com/jupl/closcri/tree/reagent][Reagent]]
 ** Goals and Features
 - Baseline yet featureful environment for working with ClojureScript
 - Use [[http://boot-clj.com/][Boot]] for easy extensibility and customization
