@@ -32,15 +32,17 @@ For example, you can run ~boot dev~ to start the development environment. From t
 | =src/**/*_test.cljs=          | ClojureScript test files                                            |
 | =src/app/config.cljs=         | Settings that can be set by the build tool using ~:closure-defines~ |
 ** Tasks
-*** =dev [-d] [-p PORT ]=
-Start the development server complete with live updates, source maps, REPL, and devcards. If you want to omit devcards use the =-d= option. To run the server under a different port number use the =-p= option. (example to run server in port 8000: =boot dev -p 8000=)
-*** =build=
+*** ~boot dev [-d] [-p PORT]~
+Start the development server complete with live updates, source maps, REPL, and devcards. If you want to omit devcards use the ~boot -d~ option. To run the server under a different port number use the ~-p~ option. (example to run server in port 8000: ~boot dev -p 8000~)
+*** ~boot build~
 Create a production build with optimizations. Devcard related items are omitted.
-*** =devcards=
+*** ~boot serve build [-p PORT]~
+Create a production build with optimizations, and serve on a static server. Devcard related items are omitted.
+*** ~boot devcards~
 Create a standalone build of devcards only, ready to share.
-*** =test=
+*** ~boot test~
 Run all CLJS tests once. If tests are defined with devcards, those are included.
-*** =tdd=
+*** ~boot watch test~
 Run all CLJS tests once and run again on file changes. If tests are defined with devcards, those are included.
-*** =analyze=
+*** ~boot analyze~
 Check and analyze source code.
