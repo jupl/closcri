@@ -59,10 +59,10 @@
 (deftask devcards []
   (comp
    (speak)
-   (sift :include #{#"^devcards" #"/" #"\.clj(s|c)$"})
+   (sift :include #{#"^index"} :invert true)
    (cljs :optimizations :advanced
          :compiler-options @closure-opts)
-   (sift :include #{#"\.out" #"\.cljs\.edn$"} :invert true)))
+   (sift :include #{#"\.out" #"\.cljs\.edn$" #"^\." #"/\."} :invert true)))
 
 (deftask analyze []
   (comp
