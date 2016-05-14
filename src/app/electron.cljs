@@ -18,7 +18,8 @@
   (when (nil? @window)
     (reset! window (new-window))
     (.loadURL @window (str config/base-url url))
-    (.on @window "closed" #(reset! window nil))))
+    (.on @window "closed" #(reset! window nil)))
+  (.focus @window))
 
 (defn init []
   (let [app (.-app electron)]
