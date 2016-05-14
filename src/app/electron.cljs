@@ -5,6 +5,10 @@
 
 (def electron (js/require "electron"))
 
+(def base-url (if config/production
+                (str "file://" js/__dirname "/")
+                (let [os (js/require "os")]
+                  (str "http://" (.hostname os) ":3000/"))))
 (def window (atom nil))
 
 (defn new-window [& args]
@@ -17,7 +21,7 @@
 (defn init-window [window & {:keys [url] :or {url "index.html"}}]
   (when (nil? @window)
     (reset! window (new-window))
-    (.loadURL @window (str config/base-url url))
+    (.loadURL @window (str base-url url))
     (.on @window "closed" #(reset! window nil))))
 
 (defn init []
