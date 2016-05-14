@@ -60,7 +60,7 @@
 (deftask devcards []
   (comp
    (speak)
-   (sift :include #{#"^index"} :invert true)
+   (sift :include #{#"^index" #"^electron" #"^package"} :invert true)
    (cljs :optimizations :advanced
          :compiler-options @closure-opts)
    (sift :include #{#"\.out" #"\.cljs\.edn$" #"^\." #"/\."} :invert true)))
