@@ -11,10 +11,11 @@
 
 (defn init-window [window url & args]
   (when (nil? @window)
-    (reset! window (browser-window. (->> args
-                                         (apply hash-map)
-                                         (transform-keys ->camelCaseString)
-                                         clj->js)))
+    (reset! window (->> args
+                        (apply hash-map)
+                        (transform-keys ->camelCaseString)
+                        clj->js
+                        browser-window.))
     (.loadURL @window (str config/base-url url))
     (.on @window "closed" #(reset! window nil)))
   (.focus @window))
