@@ -9,22 +9,20 @@
 
 (def main-window (atom nil))
 
-(defn new-window [& args]
-  (browser-window. (->> args
-                        (apply hash-map)
-                        (transform-keys ->camelCaseString)
-                        clj->js)))
-
-(defn init-window [window & {:keys [url] :or {url "index.html"}}]
+(defn init-window [window url & args]
   (when (nil? @window)
-    (reset! window (new-window))
+    (reset! window (browser-window. (->> args
+                                         (apply hash-map)
+                                         (transform-keys ->camelCaseString)
+                                         clj->js)))
     (.loadURL @window (str config/base-url url))
     (.on @window "closed" #(reset! window nil)))
   (.focus @window))
 
 (defn init []
-  (.on app "ready" #(init-window main-window))
-  (.on app "activate" #(init-window main-window))
-  (.on app "window-all-closed" #(when-not config/osx (.quit app))))
+  (let [open-main-window #(init-window main-window "index.html")]
+    (.on app "ready" open-main-window)
+    (.on app "activate" open-main-window)
+    (.on app "window-all-closed" #(when-not config/osx (.quit app)))))
 
 (set! *main-cli-fn* identity)
