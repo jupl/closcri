@@ -7,7 +7,7 @@
 (def app (.-app electron))
 (def browser-window (.-BrowserWindow electron))
 
-(def window (atom nil))
+(def main-window (atom nil))
 
 (defn new-window [& args]
   (let [args-map (apply hash-map args)
