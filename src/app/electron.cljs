@@ -10,10 +10,10 @@
 (def main-window (atom nil))
 
 (defn new-window [& args]
-  (let [args-map (apply hash-map args)
-        camel-args-map (transform-keys ->camelCaseString args-map)
-        options (clj->js camel-args-map)]
-    (browser-window. options)))
+  (browser-window. (->> args
+                        (apply hash-map)
+                        (transform-keys ->camelCaseString)
+                        clj->js)))
 
 (defn init-window [window & {:keys [url] :or {url "index.html"}}]
   (when (nil? @window)
