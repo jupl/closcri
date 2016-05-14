@@ -4,6 +4,7 @@ This is a template for creating and developing ClojureScript applications. The o
 ** Variants
 - [[https://github.com/jupl/closcri][Base]]
 - [[https://github.com/jupl/closcri/tree/reagent][Reagent]]
+- [[https://github.com/jupl/closcri/tree/electron][Electron]]
 ** Goals and Features
 - Baseline yet featureful environment for working with ClojureScript
 - Use [[http://boot-clj.com/][Boot]] for easy extensibility and customization
