@@ -12,6 +12,7 @@
                  [org.clojure/clojure         "1.8.0"          :scope "test"]
                  [pandeiro/boot-http          "0.7.3"          :scope "test"]
                  [tolitius/boot-check         "0.1.2-SNAPSHOT" :scope "test"]
+                 [camel-snake-kebab           "0.4.0"]
                  [org.clojure/clojurescript   "1.8.40"]])
 
 (require

@@ -5,7 +5,7 @@ This is a template for creating and developing ClojureScript applications. The o
 - [[https://github.com/jupl/closcri][Base]]
 - [[https://github.com/jupl/closcri/tree/reagent][Reagent]]
 ** Goals and Features
-- Baseline yet featureful environment for working with ClojureScript
+- Baseline yet featureful environment for working with ClojureScript and [[http://electron.atom.io/][Electron]]
 - Use [[http://boot-clj.com/][Boot]] for easy extensibility and customization
 - Development tools/setup out of the box
   - Live reloading, hot loading
@@ -21,7 +21,7 @@ This is a template for creating and developing ClojureScript applications. The o
 2. Clone/download this repository
 3. Run one of tasks defined below. If this is your first time using this dependencies will automatically be downloaded.
 4. View project structure and customize =build.boot= to fit your needs.
-For example, you can run ~boot dev~ to start the development environment. From there you can visit =http://localhost:3000= to view the current build and =http://localhost:3000/devcards.html= to view devcards.
+For example, you can run ~boot dev~ to start the development environment. From there you can switch to the =target/= directory and use [[https://github.com/electron-userland/electron-prebuilt][electron-prebuilt]] to start the application bu running ~electron .~.
 ** Project structure
 | Directories/files             | Description                                                         |
 |-------------------------------+---------------------------------------------------------------------|
