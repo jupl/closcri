@@ -34,6 +34,6 @@
       (.buildFromTemplate menu x)
       (.setApplicationMenu menu x))))
 
-;; (.on app "ready" (fn []
-;;                    (add-watch menu-template :watcher update-menu!)
-;;                    (reset! menu-template @menu-template)))
+(.on app "ready" (fn []
+                   (add-watch menu-template :watcher update-menu!)
+                   (reset! menu-template @menu-template)))
