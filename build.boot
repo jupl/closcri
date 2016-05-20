@@ -36,7 +36,13 @@
   (comp
    (speak)
    (sift :include #{#"^devcards"} :invert true)
-   (cljs :optimizations :advanced
+   (cljs :ids #{"electron"}
+         :optimizations :simple
+         :optimize-constants true
+         :static-fns true
+         :compiler-options @closure-opts)
+   (cljs :ids #{"index"}
+         :optimizations :advanced
          :compiler-options @closure-opts)
    (sift :include #{#"\.out" #"\.cljs\.edn$" #"^\." #"/\."} :invert true)))
 
