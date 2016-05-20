@@ -5,7 +5,7 @@
                  [adzerk/boot-reload          "0.4.7"          :scope "test"]
                  [boot/core                   "2.4.2"          :scope "test"]
                  [binaryage/devtools          "0.6.1"          :scope "test"]
-                 [binaryage/dirac             "0.3.0"          :scope "test"]
+                 [binaryage/dirac             "0.4.0"          :scope "test"]
                  [crisptrutski/boot-cljs-test "0.2.1"          :scope "test"]
                  [devcards                    "0.2.1-6"        :scope "test"]
                  [jupl/boot-cljs-devtools     "0.1.0"          :scope "test"]
