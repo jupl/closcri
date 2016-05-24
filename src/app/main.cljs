@@ -13,6 +13,8 @@
     (set! js/container.innerHTML message)))
 
 (defn init []
+  (when config/production
+    (enable-console-print!))
   (set! js/container.style.display nil)
   (render))
 

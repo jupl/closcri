@@ -8,6 +8,3 @@
                   (str "http://" (.hostname os) ":3000/"))))
 
 (def osx (= js/process.platform "darwin"))
-
-(when-not production
-  (enable-console-print!))
