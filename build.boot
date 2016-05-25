@@ -25,7 +25,7 @@
 
 (ns-unmap 'boot.user 'test)
 
-(task-options! reload {:on-jsload 'reagent.core/force-update-all}
+(task-options! reload {:on-jsload 'app.config/on-reload}
                serve {:dir "target"}
                test-cljs {:js-env :phantom})
 
