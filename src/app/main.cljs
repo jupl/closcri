@@ -6,10 +6,8 @@
   (set! js/container.innerHTML "Hello world"))
 
 (defn init []
-  (when config/production
-    (enable-console-print!))
+  (when-not config/production
+    (enable-console-print!)
+    (config/add-reload-handler #'render))
   (set! js/container.style.display nil)
-  (render))
-
-(defn reload []
   (render))

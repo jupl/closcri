@@ -25,7 +25,7 @@
 
 (ns-unmap 'boot.user 'test)
 
-(task-options! reload {:on-jsload 'app.main/reload}
+(task-options! reload {:on-jsload 'app.config/on-reload}
                serve {:dir "target"}
                test-cljs {:js-env :phantom})
 
