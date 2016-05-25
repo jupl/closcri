@@ -7,8 +7,8 @@
   (reagent/render [app/page] js/container))
 
 (defn init []
+  (set! js/container.style.display nil)
   (when-not config/production
     (enable-console-print!)
     (config/add-reload-handler #'render))
-  (set! js/container.style.display nil)
   (render))
