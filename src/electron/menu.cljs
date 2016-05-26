@@ -13,7 +13,7 @@
                                :click #(.quit app)}]})
 
 (def dev-menu-item
-  (when-not config/prouction
+  (when-not config/production
     (let [devcards-window (atom nil)
           open-devcards #(init-window devcards-window "devcards.html")
           toggle-devtools #(.toggleDevTools %2)]
