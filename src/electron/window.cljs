@@ -1,7 +1,7 @@
-(ns app.electron.window
-  (:require [app.config :as config]
-            [camel-snake-kebab.core :refer [->camelCaseString]]
-            [camel-snake-kebab.extras :refer [transform-keys]]))
+(ns electron.window
+  (:require [camel-snake-kebab.core :refer [->camelCaseString]]
+            [camel-snake-kebab.extras :refer [transform-keys]]
+            [core.config :as config]))
 
 (def browser-window (-> "electron" js/require .-BrowserWindow))
 

@@ -1,6 +1,6 @@
-(ns app.electron
-  (:require [app.config :as config]
-            [app.electron.window :refer [init-window]]))
+(ns electron.main
+  (:require [core.config :as config]
+            [electron.window :refer [init-window]]))
 
 (def app (-> "electron" js/require .-app))
 

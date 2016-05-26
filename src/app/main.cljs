@@ -1,5 +1,6 @@
 (ns app.main
-  (:require [app.config :as config]))
+  (:require [core.config :as config]
+            [core.reload :as reload]))
 
 (defn render []
   (set! js/container.style.backgroundColor "gainsboro")
@@ -9,5 +10,5 @@
   (set! js/container.style.display nil)
   (when-not config/production
     (enable-console-print!)
-    (config/add-reload-handler #'render))
+    (reload/add-handler #'render))
   (render))
