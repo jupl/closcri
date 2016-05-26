@@ -7,4 +7,4 @@
 
 (defn- handle []
   (doseq [handler @handlers]
-    (try (handler) (catch js/Error e))))
+    (js/setTimeout #(handler) 0)))
