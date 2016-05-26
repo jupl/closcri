@@ -28,13 +28,12 @@
 (def update-menu!
   (let [pre-menu (if config/osx [osx-menu-item] [])
         post-menu (if config/production [] [dev-menu-item])]
-    (fn [_ _ _ menu-template]
-      (as-> menu-template x
-        (into pre-menu x)
-        (into x post-menu)
-        (clj->js x)
-        (.buildFromTemplate menu x)
-        (.setApplicationMenu menu x)))))
+    #(as-> %4 x
+       (into pre-menu x)
+       (into x post-menu)
+       (clj->js x)
+       (.buildFromTemplate menu x)
+       (.setApplicationMenu menu x))))
 
 (.on app "ready" (fn []
                    (add-watch menu-template :watcher update-menu!)
