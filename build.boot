@@ -24,14 +24,14 @@
 
 (ns-unmap 'boot.user 'test)
 
-(task-options! reload {:on-jsload 'app.config/on-reload}
+(task-options! reload {:on-jsload 'core.reload/handle}
                serve {:dir "target"}
                test-cljs {:js-env :phantom})
 
 (def closure-opts (atom {:devcards true :output-wrapper :true}))
 
 (deftask build []
-  (swap! closure-opts assoc-in [:closure-defines 'app.config/production] true)
+  (swap! closure-opts assoc-in [:closure-defines 'core.config/production] true)
   (comp
    (speak)
    (sift :include #{#"^devcards"} :invert true)
