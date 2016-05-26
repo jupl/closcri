@@ -1,5 +1,6 @@
 (ns electron.main
   (:require [core.config :as config]
+            [electron.menu]
             [electron.window :refer [init-window]]))
 
 (def app (-> "electron" js/require .-app))
