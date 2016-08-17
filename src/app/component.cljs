@@ -1,4 +1,7 @@
-(ns app.component)
+(ns app.component
+  (:require [color.component :as color]))
+
+(def page-style {:width "100%" :height "100%"})
 
 (defn page []
-  [:div "Hello world"])
+  [color/page {:style page-style}])

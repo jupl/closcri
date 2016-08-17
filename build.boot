@@ -7,13 +7,14 @@
                  [binaryage/devtools          "0.6.1"          :scope "test"]
                  [binaryage/dirac             "0.4.0"          :scope "test"]
                  [crisptrutski/boot-cljs-test "0.2.1"          :scope "test"]
-                 [devcards                    "0.2.1-6"        :scope "test"]
+                 [devcards                    "0.2.1-6"        :scope "test" :exclusions [cljsjs/react]]
                  [jupl/boot-cljs-devtools     "0.1.0"          :scope "test"]
                  [org.clojure/clojure         "1.8.0"          :scope "test"]
                  [pandeiro/boot-http          "0.7.3"          :scope "test"]
                  [tolitius/boot-check         "0.1.2-SNAPSHOT" :scope "test"]
                  [org.clojure/clojurescript   "1.8.40"]
-                 [reagent                     "0.6.0-alpha2"]])
+                 [re-frame                    "0.7.0"]
+                 [reagent                     "0.6.0-alpha2" :exclusions [org.clojure/tools.reader cljsjs/react]]])
 
 (require
  '[adzerk.boot-cljs            :refer [cljs]]

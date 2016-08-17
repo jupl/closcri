@@ -1,6 +1,7 @@
 (ns app.main
   (:require [app.component :as app]
             [core.config :as config]
+            [core.db :as db]
             [core.reload :as reload]
             [reagent.core :as reagent]))
 
@@ -12,4 +13,5 @@
   (when-not config/production
     (enable-console-print!)
     (reload/add-handler #'render))
+  (db/init!)
   (render))
