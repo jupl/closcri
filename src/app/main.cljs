@@ -8,8 +8,7 @@
    :bottom 0
    :left 0
    :right 0
-   :overflow "auto"
-   :background-color "red"})
+   :overflow "auto"})
 
 (defn render []
   (set! js/container.style nil)
