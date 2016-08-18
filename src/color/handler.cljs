@@ -3,7 +3,7 @@
 (def colors ["#39cccc" "#2ecc40" "#ffdc00" "#ff851b"])
 (def indexed-colors (map vector (iterate inc 0) colors))
 
-(defn index-of-color [color]
+(defn- index-of-color [color]
   (first (for [[index element] indexed-colors :when (= color element)] index)))
 
 (defn next-color [db _]
