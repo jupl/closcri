@@ -1,11 +1,11 @@
 (ns app.main
-  (:require [app.component :as app]
+  (:require [app.components.page :as app.page]
             [core.config :as config]
             [core.reload :as reload]
             [reagent.core :as reagent]))
 
 (defn render []
-  (reagent/render [app/page] js/container))
+  (reagent/render [app.page/component] js/container))
 
 (defn init []
   (set! js/container.style.display nil)
