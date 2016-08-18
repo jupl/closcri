@@ -2,8 +2,17 @@
   (:require [core.config :as config]
             [core.reload :as reload]))
 
+(def style {:position "fixed"
+            :top 0
+            :bottom 0
+            :left 0
+            :right 0
+            :overflow "auto"
+            :background-color "red"})
+
 (defn render []
-  (set! js/container.style.backgroundColor "gainsboro")
+  (set! js/container.style nil)
+  (js/Object.assign js/container.style (clj->js style))
   (set! js/container.innerHTML "Hello world"))
 
 (defn init []
