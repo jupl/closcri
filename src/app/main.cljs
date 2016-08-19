@@ -22,7 +22,7 @@
 (defn init
   "Configure and bootstrap the application."
   []
-  (when-not config/production
+  (when (identical? config/production false)
     (enable-console-print!)
     (reload/add-handler #'render))
   (render))
