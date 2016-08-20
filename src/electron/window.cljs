@@ -3,9 +3,13 @@
             [camel-snake-kebab.extras :refer [transform-keys]]
             [core.config :as config]))
 
-(def browser-window (-> "electron" js/require .-BrowserWindow))
+(def browser-window
+  "Electron browser window class."
+  (-> "electron" js/require .-BrowserWindow))
 
-(defn init-window [window url & args]
+(defn init-window
+  "Create a new window if it doesn't exist already. Also focus the window."
+  [window url & args]
   (when (nil? @window)
     (reset! window (->> args
                         (apply hash-map)
