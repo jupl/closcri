@@ -1,8 +1,7 @@
 (ns core.reload)
 
 ;; Set of handlers called when a hot reload occurs in a dev environment.
-(defonce handlers
-  (atom #{}))
+(defonce handlers (atom #{}))
 
 (defn add-handler
   "Add a callback function to reload handlers."
