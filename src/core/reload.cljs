@@ -1,7 +1,7 @@
 (ns core.reload)
 
+;; Set of handlers called when a hot reload occurs in a dev environment.
 (defonce handlers
-  "Set of handlers called when a hot reload occurs in a dev environment."
   (atom #{}))
 
 (defn add-handler
