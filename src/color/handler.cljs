@@ -15,14 +15,12 @@
 
 (defn next-color
   "Update re-frame data with next color in color list."
-  [db _]
-  (let [index (or (index-of-color (:color db)) -1)
-        color (get colors (mod (+ index 1) (count colors)))]
-    (assoc db :color color)))
+  [color _]
+  (let [index (or (index-of-color color) -1)]
+    (get colors (mod (+ index 1) (count colors)))))
 
 (defn previous-color
   "Update re-frame data with previous color in color list."
-  [db _]
-  (let [index (or (index-of-color (:color db)) 1)
-        color (get colors (mod (- index 1) (count colors)))]
-    (assoc db :color color)))
+  [color _]
+  (let [index (or (index-of-color color) 1)]
+    (get colors (mod (- index 1) (count colors)))))

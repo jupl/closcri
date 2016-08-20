@@ -8,8 +8,8 @@
 (register-sub :color sub/color)
 
 ;; Add color action handlers
-(register-handler :color-previous handler/previous-color)
-(register-handler :color-next handler/next-color)
+(register-handler :color-previous :color handler/previous-color)
+(register-handler :color-next :color handler/next-color)
 
 ;; Run actions when application starts up
 (add-init-dispatch! [:color-next])
