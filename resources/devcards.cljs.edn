@@ -1,2 +1,4 @@
-{:require [app.components.page-test]
+{:require [app.components.page-test
+           color.handler-test
+           color.sub-test]
  :init-fns [devcards.core/start-devcard-ui!]}

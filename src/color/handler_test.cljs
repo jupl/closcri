@@ -1,6 +1,7 @@
 (ns color.handler-test
-  (:require [cljs.test :refer-macros [deftest is testing]]
-            [color.handler :as handler]))
+  (:require [cljs.test :refer-macros [is testing]]
+            [color.handler :as handler]
+            [devcards.core :refer-macros [deftest]]))
 
 (deftest previous-color-test
   (testing "known color"

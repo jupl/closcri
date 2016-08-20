@@ -1,7 +1,7 @@
 (ns color.sub-test
-  (:require [cljs.test :refer-macros [deftest is]]
-            [color.sub :as sut]))
+  (:require [cljs.test :refer-macros [is]]
+            [color.sub :as sub]
+            [devcards.core :refer-macros [deftest]]))
 
 (deftest color-test
-  (let [db (atom {:color "acolor"})]
-    (is (= @(sut/color db) "acolor"))))
+  (is (= (sub/color {:color "acolor"}) "acolor")))
