@@ -1,7 +1,6 @@
-(ns color.sub
-  (:require [reagent.ratom :refer-macros [reaction]]))
+(ns color.sub)
 
 (defn color
-  "Build a reaction from app-db to extract color."
-  [db]
-  (reaction (:color @db)))
+  "Extract color from app-db."
+  [{:keys [color]}]
+  color)

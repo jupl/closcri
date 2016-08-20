@@ -1,26 +1,13 @@
 (ns core.db
   (:require [core.config :as config]
-            [re-frame.core :refer [dispatch dispatch-sync]]
-            [re-frame.handlers :refer [register-base]]
-            [re-frame.middleware :refer [debug path pure trim-v undoable]]))
+            [re-frame.core :as re-frame]
+            [re-frame.std-interceptors :refer [debug trim-v]]))
 
-;; Set up undo middleware unless in production
-(defonce undo-middleware
-  (if (identical? config/production true)
-    nil
-    (undoable)))
-
-(def middleware-before
-  "Required middlewares that must come first."
-  (if (identical? config/production true)
-    [pure trim-v]
-    [pure debug trim-v]))
-
-(def middleware-after
+(def post-middlewares
   "Required middlewares that must come last."
   (if (identical? config/production true)
-    []
-    [undo-middleware]))
+    [trim-v]
+    [debug trim-v]))
 
 (def init-actions
   "Set of actions that will be called when application loads."
@@ -35,17 +22,11 @@
   "Initialize app-db by calling on actions that need to be initialized."
   []
   (doseq [action @init-actions]
-    (dispatch-sync action)))
+    (re-frame/dispatch-sync action)))
 
-(defn- build-middlewares
-  "Construct middleware with an optional path for re-frame's path middleware."
-  [p]
-  (apply comp (into middleware-before (if (nil? p)
-                                        middleware-after
-                                        (into [(path p)] middleware-after)))))
-
-(defn register-handler
+(defn reg-event-db
   "Custom re-frame handler register."
-  ([id handler] (register-handler id nil handler))
-  ([id p handler]
-   (register-base id (build-middlewares p) handler)))
+  ([id handler]
+   (reg-event-db id [] handler))
+  ([id middlewares handler]
+   (re-frame/reg-event-db id (into middlewares post-middlewares) handler)))

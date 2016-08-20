@@ -12,7 +12,7 @@
                  [pandeiro/boot-http            "0.7.3"     :scope "test"]
                  [tolitius/boot-check           "0.1.3"     :scope "test"]
                  [org.clojure/clojurescript     "1.9.216"]
-                 [re-frame                      "0.7.0"]
+                 [re-frame                      "0.8.0"]
                  [reagent                       "0.6.0-rc"]])
 
 (require
