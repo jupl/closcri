@@ -25,12 +25,6 @@
   [action]
   (swap! init-actions conj action))
 
-(defn init!
-  "Initialize app-db by calling on actions that need to be initialized."
-  []
-  (doseq [action @init-actions]
-    (re-frame/dispatch-sync action)))
-
 (defn reg-event-db
   "Custom re-frame handler register."
   ([id handler]
@@ -40,3 +34,14 @@
                            (into interceptors)
                            (into pre-interceptors))]
      (re-frame/reg-event-db id interceptors handler))))
+
+(defn init!
+  "Initialize app-db by calling on actions that need to be initialized."
+  []
+  (doseq [action @init-actions]
+    (re-frame/dispatch-sync action))
+
+  ;; After actions are fired, fire an init event for DevTools
+  (when (and (identical? config/production false) db-devtools/available)
+    (reg-event-db :devtools-init identity)
+    (re-frame/dispatch-sync [:devtools-init])))

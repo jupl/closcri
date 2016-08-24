@@ -33,7 +33,9 @@
                                  (merge {:type type})
                                  (clj->js))
                      state (clj->js db)]
-                 (.send devtools action state)))
+                 (if (= type :devtools-init)
+                   (.init devtools state)
+                   (.send devtools action state))))
              (dissoc %1 :devtools-event))))
 
 (defn init!
