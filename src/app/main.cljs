@@ -15,8 +15,9 @@
 (defn render
   "Render the application."
   []
-  (set! js/container.style nil)
-  (js/Object.assign js/container.style (clj->js container-style))
+  (set! js/container.style.cssText nil)
+  (doseq [[key val] container-style]
+    (aset js/container.style (clj->js key) (clj->js val)))
   (set! js/container.innerHTML "Hello world"))
 
 (defn init
