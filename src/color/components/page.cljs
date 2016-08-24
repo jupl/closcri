@@ -46,5 +46,4 @@
   "Color page component."
   [{:keys [style]}]
   (let [color (subscribe [:color])]
-    (fn []
-      [template {:style style :color @color :actions actions}])))
+    #(template {:style style :color @color :actions actions})))
