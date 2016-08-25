@@ -6,7 +6,7 @@ This is a template for creating and developing ClojureScript applications. The o
 - [[https://github.com/jupl/closcri/tree/reagent][Reagent]]
 - [[https://github.com/jupl/closcri/tree/electron][Electron]]
 ** Goals and Features
-- Baseline yet featureful environment for working with Reagent
+- Baseline yet featureful environment for working with Reagent and re-frame
 - Use [[http://boot-clj.com/][Boot]] for easy extensibility and customization
 - Development tools/setup out of the box
   - Live reloading, hot loading
@@ -14,6 +14,7 @@ This is a template for creating and developing ClojureScript applications. The o
   - REPL using [[https://github.com/binaryage/dirac][Dirac]]
   - Testing and test watching
   - [[https://github.com/bhauman/devcards][Devcards]] included (can be used with testing)
+  - Integration with [[https://github.com/zalmoxisus/redux-devtools-extension][Redux DevTools extension]] available
 - Standalone asset builds
 - Standalone devcards builds
 - Linting and code analyzing can be checked
