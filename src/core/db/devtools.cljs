@@ -41,7 +41,7 @@
 (defn init!
   "Set up integration with re-frame and Redux DevTools."
   []
-  (when available
+  (when (and available (not @devtools-atom))
     (let [devtools (js/devToolsExtension.connect)]
       (reset! devtools-atom devtools)
       (.subscribe devtools sub)

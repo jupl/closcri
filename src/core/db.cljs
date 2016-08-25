@@ -6,15 +6,16 @@
 
 (def post-interceptors
   "Required interceptors that must come last."
-  (if (or (identical? config/production true) db-devtools/available)
-    [trim-v]
-    [debug trim-v]))
+  (into [] (concat (when (identical? config/production false)
+                     (when-not db-devtools/available
+                       [debug]))
+                   [trim-v])))
 
 (def pre-interceptors
   "Required interceptors that must come first."
-  (if (or (identical? config/production true) (not db-devtools/available))
-    []
-    [(db-devtools/make-interceptor)]))
+  (when (identical? config/production false)
+    (when db-devtools/available
+      [(db-devtools/make-interceptor)])))
 
 (def init-actions
   "Set of actions that will be called when application loads."
@@ -30,9 +31,9 @@
   ([id handler]
    (reg-event-db id [] handler))
   ([id interceptors handler]
-   (let [interceptors (->> post-interceptors
-                           (into interceptors)
-                           (into pre-interceptors))]
+   (let [interceptors (into [] (concat pre-interceptors
+                                       interceptors
+                                       post-interceptors))]
      (re-frame/reg-event-db id interceptors handler))))
 
 (defn init!
@@ -42,6 +43,8 @@
     (re-frame/dispatch-sync action))
 
   ;; After actions are fired, fire an init event for DevTools
-  (when (and (identical? config/production false) db-devtools/available)
-    (reg-event-db :devtools-init identity)
-    (re-frame/dispatch-sync [:devtools-init])))
+  (when (identical? config/production false)
+    (when db-devtools/available
+      (db-devtools/init!)
+      (reg-event-db :devtools-init identity)
+      (re-frame/dispatch-sync [:devtools-init]))))

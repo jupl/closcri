@@ -2,7 +2,6 @@
   (:require [app.components.page :as app.page]
             [core.config :as config]
             [core.db :as db]
-            [core.db.devtools :as db-devtools]
             [core.reload :as reload]
             [reagent.core :as reagent]))
 
@@ -28,7 +27,6 @@
   []
   (when (identical? config/production false)
     (enable-console-print!)
-    (db-devtools/init!)
     (reload/add-handler #'render))
   (db/init!)
   (render))
