@@ -61,19 +61,23 @@
   [d devcards  bool "Include devcards in build."
    s server    bool "Start a local server with dev tools and live updates."
    p port PORT int  "The port number to start the server in."]
-  (comp
-   (when-task server (serve :port port))
-   (when-task server (watch))
-   (when-task server (speak))
-   (when-task (not devcards) (sift :include #{#"^devcards"} :invert true))
-   (when-task server (reload))
-   (when-task server (cljs-devtools))
-   (cljs :source-map true
-         :optimizations :none
-         :compiler-options closure-opts)
-   (sift :include #{#"\.cljs\.edn$" #"^\." #"/\."} :invert true)
-   (when-task (not server) (sift :include #{#"\.out"} :invert true))
-   (target)))
+
+  (let [dev-closure-opts (assoc-in closure-opts
+                                   [:closure-defines 'common.config/hot-reload]
+                                   server)]
+    (comp
+     (when-task server (serve :port port))
+     (when-task server (watch))
+     (when-task server (speak))
+     (when-task (not devcards) (sift :include #{#"^devcards"} :invert true))
+     (when-task server (reload))
+     (when-task server (cljs-devtools))
+     (cljs :source-map true
+           :optimizations :none
+           :compiler-options dev-closure-opts)
+     (sift :include #{#"\.cljs\.edn$" #"^\." #"/\."} :invert true)
+     (when-task (not server) (sift :include #{#"\.out"} :invert true))
+     (target))))
 
 (deftask devcards
   "Produce a build containing devcards only with optimizations."
