@@ -2,17 +2,16 @@
  :source-paths #{"src"}
  :resource-paths #{"resources"}
  :dependencies '[[adzerk/boot-cljs              "1.7.228-1" :scope "test"]
-                 [adzerk/boot-reload            "0.4.12"    :scope "test"]
-                 [binaryage/devtools            "0.8.1"     :scope "test"]
-                 [binaryage/dirac               "0.6.3"     :scope "test"]
-                 [cljsjs/react-dom              "0.14.3-1"  :scope "test"]
+                 [adzerk/boot-reload            "0.4.13"    :scope "test"]
+                 [binaryage/devtools            "0.8.2"     :scope "test"]
+                 [binaryage/dirac               "0.7.4"     :scope "test"]
                  [crisptrutski/boot-cljs-test   "0.2.1"     :scope "test"]
-                 [devcards                      "0.2.1-7"   :scope "test" :exclusions [cljsjs/react-dom]]
-                 [org.clojure/clojure           "1.8.0"     :scope "test"]
-                 [powerlaces/boot-cljs-devtools "0.1.1"     :scope "test"]
+                 [devcards                      "0.2.2"     :scope "test"]
+                 [org.clojure/clojurescript     "1.9.293"   :scope "test"]
                  [pandeiro/boot-http            "0.7.3"     :scope "test"]
+                 [powerlaces/boot-cljs-devtools "0.1.2"     :scope "test"]
                  [tolitius/boot-check           "0.1.3"     :scope "test"]
-                 [org.clojure/clojurescript     "1.9.216"]])
+                 [org.clojure/clojure           "1.8.0"]])
 
 (require
  '[adzerk.boot-cljs              :refer [cljs]]
@@ -22,62 +21,81 @@
  '[pandeiro.boot-http            :refer [serve]]
  '[tolitius.boot-check           :as    check])
 
+;; Required to define custom test task.
 (ns-unmap 'boot.user 'test)
 
-(def closure-opts (atom {:devcards true :output-wrapper :true}))
-(def target-path "target")
+(def closure-opts
+  "Common Closure Compiler options for each build."
+  {:output-wrapper :true})
 
-(task-options! reload {:on-jsload 'core.reload/handle}
+(def target-path
+  "Default directory for build output."
+  "target")
+
+(defmacro when-task
+  "Allow a task if a condition is met."
+  [cond task]
+  `(if ~cond ~task identity))
+
+;; Define default task options used across the board.
+(task-options! reload {:on-jsload 'common.reload/handle}
                serve {:dir target-path}
                target {:dir #{target-path}}
-               test-cljs {:js-env :phantom})
+               test-cljs {:exit? true :js-env :phantom})
 
-(deftask build []
-  (swap! closure-opts assoc-in [:closure-defines 'core.config/production] true)
-  (comp
-   (speak)
-   (sift :include #{#"^devcards"} :invert true)
-   (cljs :optimizations :advanced
-         :compiler-options @closure-opts)
-   (sift :include #{#"\.out" #"\.cljs\.edn$" #"^\." #"/\."} :invert true)
-   (target)))
+(deftask build
+  "Produce a production build with optimizations."
+  []
+  (let [prod-closure-opts (assoc-in closure-opts
+                                    [:closure-defines 'core.config/production]
+                                    true)]
+    (comp
+     (sift :include #{#"^devcards"} :invert true)
+     (cljs :optimizations :advanced
+           :compiler-options prod-closure-opts)
+     (sift :include #{#"\.out" #"\.cljs\.edn$" #"^\." #"/\."} :invert true)
+     (target))))
 
 (deftask dev
-  [d no-devcards bool "Flag to indicate if devcards should be excluded. Defaults to false."
-   p port PORT   int  "The port number to start the server in."]
+  "Produce a development build."
+  [d devcards  bool "Include devcards in build."
+   s server    bool "Start a local server with dev tools and live updates."
+   p port PORT int  "The port number to start the server in."]
   (comp
-   (serve :port port)
-   (watch)
-   (speak)
-   (if no-devcards
-     (sift :include #{#"^devcards"} :invert true)
-     identity)
-   (reload)
-   (cljs-devtools)
+   (when-task server (serve :port port))
+   (when-task server (watch))
+   (when-task server (speak))
+   (when-task (not devcards) (sift :include #{#"^devcards"} :invert true))
+   (when-task server (reload))
+   (when-task server (cljs-devtools))
    (cljs :source-map true
          :optimizations :none
-         :compiler-options @closure-opts)
-   (sift :include #{#"\.cljs\.edn$"} :invert true)
+         :compiler-options closure-opts)
+   (sift :include #{#"\.cljs\.edn$" #"^\." #"/\."} :invert true)
+   (when-task (not server) (sift :include #{#"\.out"} :invert true))
    (target)))
 
-(deftask devcards []
+(deftask devcards
+  "Produce a build containing devcards only with optimizations."
+  []
   (comp
-   (speak)
-   (sift :include #{#"^index"} :invert true)
+   (sift :include #{#"^(?!devcards).*\.cljs\.edn$"} :invert true)
    (cljs :optimizations :advanced
-         :compiler-options @closure-opts)
-   (sift :include #{#"\.out" #"\.cljs\.edn$" #"^\." #"/\."} :invert true)
+         :compiler-options closure-opts)
+   (sift :include #{#"^assets/" #"^devcards(?!\.(cljs\.edn|out))"})
    (target)))
 
-(deftask analyze []
+(deftask lint
+  "Check and analyze source code."
+  []
   (comp
-   (sift :include #{#"\.clj(s|c)$"})
+   (sift :include #{#"\.clj[cs]?$"})
    (check/with-yagni)
    (check/with-eastwood)
    (check/with-kibit)
    (check/with-bikeshed)))
 
-(deftask test []
-  (comp
-   (speak)
-   (test-cljs)))
+(deftask test
+  "Run all tests."
+  []
+  (test-cljs))
