@@ -1,5 +1,4 @@
 {
-  "name": "closcri",
-  "version": "0.1.0",
-  "main": "electron.js"
+  "name": "Application",
+  "version": "0.1.0"
 }

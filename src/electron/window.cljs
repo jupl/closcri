@@ -1,14 +1,16 @@
 (ns electron.window
-  (:require [camel-snake-kebab.core :refer [->camelCaseString]]
-            [camel-snake-kebab.extras :refer [transform-keys]]
-            [core.config :as config]))
+  "ClojureScript API for Electron browser windows."
+  (:require
+   [camel-snake-kebab.core :refer [->camelCaseString]]
+   [camel-snake-kebab.extras :refer [transform-keys]]
+   [common.config :as config]))
 
 (def browser-window
   "Electron browser window class."
   (-> "electron" js/require .-BrowserWindow))
 
 (defn init-window
-  "Create a new window if it doesn't exist already. Also focus the window."
+  "Create a new window (if it doesn't exist already) and focus."
   [window url & args]
   (when (nil? @window)
     (reset! window (->> args

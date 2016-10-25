@@ -1,3 +1,0 @@
-{:require [electron.main]
- :init-fns [electron.main/init]
- :compiler-options {:target :nodejs}}

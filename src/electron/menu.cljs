@@ -1,6 +1,8 @@
 (ns electron.menu
-  (:require [core.config :as config]
-            [electron.window :refer [init-window]]))
+  "ClojureScript API for Electron menu."
+  (:require
+   [common.config :as config]
+   [electron.window :refer [init-window]]))
 
 (def app
   "Electron application instance."
@@ -11,15 +13,21 @@
   (-> "electron" js/require .-Menu))
 
 (def menu-template
-  "Template to render a menu in Electron."
+  "Template to render menu in Electron."
   (atom []))
 
 (def osx-menu-item
   "Additional menu item for OS X."
   {:label (.getName app)
-   :submenu [{:label "Quit"
-              :accelerator "Command+Q"
-              :click #(.quit app)}]})
+   :submenu [{:role "about"}
+             {:type "separator"}
+             {:role "services" :submenu []}
+             {:type "separator"}
+             {:role "hide"}
+             {:role "hideothers"}
+             {:role "unhide"}
+             {:type "separator"}
+             {:role "quit"}]})
 
 (def dev-menu-item
   "Additional menu item for a development environment."

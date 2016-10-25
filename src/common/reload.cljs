@@ -1,4 +1,5 @@
-(ns core.reload)
+(ns common.reload
+  "Logic for reload event handling during development.")
 
 ;; Set of handlers called when a hot reload occurs in a dev environment.
 (defonce handlers (atom #{}))
@@ -12,4 +13,4 @@
   "Invoke all registered reload handlers."
   []
   (doseq [handler @handlers]
-    (js/setTimeout #(handler) 0)))
+    (js/setTimeout handler 0)))

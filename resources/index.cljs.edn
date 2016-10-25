@@ -1,2 +1,3 @@
-{:require [app.main]
- :init-fns [app.main/init]}
+{:require [electron.main]
+ :init-fns [electron.main/main]
+ :compiler-options {:target :nodejs}}
