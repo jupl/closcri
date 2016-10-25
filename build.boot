@@ -47,7 +47,7 @@
   "Produce a production build with optimizations."
   []
   (let [prod-closure-opts (assoc-in closure-opts
-                                    [:closure-defines 'core.config/production]
+                                    [:closure-defines 'common.config/production]
                                     true)]
     (comp
      (sift :include #{#"^devcards"} :invert true)
