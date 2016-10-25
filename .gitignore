@@ -6,7 +6,8 @@
 ### Clojure ###
 pom.xml
 pom.xml.asc
-*jar
+*.jar
+*.class
 /lib/
 /classes/
 /target/
