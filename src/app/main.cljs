@@ -1,20 +1,10 @@
 (ns app.main
-  (:require [app.config :as config]))
+  "Entry point for application."
+  (:require
+   [common.config :as config]))
 
-(defonce load-time (.toLocaleString (js/Date.)))
-
-(defn render []
-  (set! js/container.style.backgroundColor "gainsboro")
-  (let [update-time (.toLocaleString (js/Date.))
-        message (if config/production
-                  (str "Loaded at " load-time ".")
-                  (str "Loaded at " load-time ". "
-                       "Updated at " update-time "."))]
-    (set! js/container.innerHTML message)))
-
-(defn init []
-  (set! js/container.style.display nil)
-  (render))
-
-(defn reload []
-  (render))
+(defn main
+  "Application entry point."
+  []
+  ;; Take out that nil and start writing!
+  nil)
