@@ -4,30 +4,24 @@
    [common.config :as config]
    [electron.window :refer [init-window]]))
 
-(def app
-  "Electron application instance."
-  (-> "electron" js/require .-app))
-
-(def menu
-  "Electron Menu class."
-  (-> "electron" js/require .-Menu))
-
 (def menu-template
   "Template to render menu in Electron."
   (atom []))
 
-(def osx-menu-item
-  "Additional menu item for OS X."
-  {:label (.getName app)
-   :submenu [{:role "about"}
-             {:type "separator"}
-             {:role "services" :submenu []}
-             {:type "separator"}
-             {:role "hide"}
-             {:role "hideothers"}
-             {:role "unhide"}
-             {:type "separator"}
-             {:role "quit"}]})
+(defn osx-menu-item
+  "Create additional menu item for OS X."
+  []
+  (let [name (-> "electron" js/require .-app .getName)]
+    {:label name
+     :submenu [{:role "about"}
+               {:type "separator"}
+               {:role "services" :submenu []}
+               {:type "separator"}
+               {:role "hide"}
+               {:role "hideothers"}
+               {:role "unhide"}
+               {:type "separator"}
+               {:role "quit"}]}))
 
 (def dev-menu-item
   "Additional menu item for a development environment."
@@ -43,18 +37,22 @@
                   :accelerator "Shift+F12"
                   :click open-devcards}]})))
 
-(def update-menu!
+(defn update-menu!
   "Handler for when menu template is updated, which rebuilds and updates menu."
-  (let [pre-menu (if config/osx [osx-menu-item] [])
+  [_ _ _ template]
+  (let [menu (-> "electron" js/require .-Menu)
+        osx (= js/process.platform "darwin")
+        pre-menu (if osx [(osx-menu-item)] [])
         post-menu (if (identical? config/production true) [] [dev-menu-item])]
-    #(as-> %4 x
-       (into pre-menu x)
-       (into x post-menu)
-       (clj->js x)
-       (.buildFromTemplate menu x)
-       (.setApplicationMenu menu x))))
+    (as-> template x
+      (into pre-menu x)
+      (into x post-menu)
+      (clj->js x)
+      (.buildFromTemplate menu x)
+      (.setApplicationMenu menu x))))
 
-;; When application starts, initialize menu and set up for watching
-(.on app "ready" (fn []
-                   (add-watch menu-template :watcher update-menu!)
-                   (reset! menu-template @menu-template)))
+(defn init-menu
+  "Intialize Electron menu and monitor for changes. Call this only once."
+  [name]
+  (add-watch menu-template :watcher update-menu!)
+  (reset! menu-template @menu-template))

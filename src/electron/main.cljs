@@ -2,21 +2,22 @@
   "Entry point for the main process."
   (:require
    [common.config :as config]
-   [electron.menu]
+   [electron.menu :refer [init-menu]]
    [electron.window :refer [init-window]]))
-
-(def app
-  "Electron application instance."
-  (-> "electron" js/require .-app))
 
 (defn main
   "Configure and bootstrap Electron application."
   []
-  (let [main-window (atom nil)
+  (let [app (-> "electron" js/require .-app)
+        exit-app #(.quit app)
+        main-window (atom nil)
+        osx (= js/process.platform "darwin")
         open-main-window #(init-window main-window "app.html")]
+    (.on app "ready" init-menu)
     (.on app "ready" open-main-window)
     (.on app "activate" open-main-window)
-    (.on app "window-all-closed" #(when-not config/osx (.quit app)))))
+    (when-not osx
+      (.on app "window-all-closed" exit-app))))
 
 ;; Required for a Node application
 (set! *main-cli-fn* identity)

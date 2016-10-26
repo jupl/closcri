@@ -1,5 +1,5 @@
 (ns common.reload
-  "Logic for reload event handling during development.")
+  "Logic for reload notification if hot reloading is available.")
 
 ;; Set of handlers called when a hot reload occurs in a dev environment.
 (defonce handlers (atom #{}))
