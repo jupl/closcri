@@ -8,7 +8,7 @@
   "Template to render menu in Electron."
   (atom []))
 
-(defn osx-menu-item
+(defn- osx-menu-item
   "Create additional menu item for OS X."
   []
   (let [name (-> "electron" js/require .-app .getName)]
@@ -23,8 +23,9 @@
                {:type "separator"}
                {:role "quit"}]}))
 
-(def dev-menu-item
-  "Additional menu item for a development environment."
+(defn- dev-menu-item
+  "Create dditional menu item for development."
+  []
   (when (identical? config/production false)
     (let [devcards-window (atom nil)
           open-devcards #(init-window devcards-window "devcards.html")
@@ -37,13 +38,13 @@
                   :accelerator "Shift+F12"
                   :click open-devcards}]})))
 
-(defn update-menu!
+(defn- update-menu!
   "Handler for when menu template is updated, which rebuilds and updates menu."
   [_ _ _ template]
   (let [menu (-> "electron" js/require .-Menu)
         osx (= js/process.platform "darwin")
         pre-menu (if osx [(osx-menu-item)] [])
-        post-menu (if (identical? config/production true) [] [dev-menu-item])]
+        post-menu (if (identical? config/production true) [] [(dev-menu-item)])]
     (as-> template x
       (into pre-menu x)
       (into x post-menu)

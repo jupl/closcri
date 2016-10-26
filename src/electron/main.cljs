@@ -5,7 +5,7 @@
    [electron.menu :refer [init-menu]]
    [electron.window :refer [init-window]]))
 
-(defn main
+(defn- -main
   "Configure and bootstrap Electron application."
   []
   (set! *main-cli-fn* identity) ;; Required for a Node application
