@@ -8,8 +8,7 @@
 
 (def default-response
   "Default response to show, which is a page."
-  (-> (resource-response "index.html" {:root "public"})
-      (content-type "text/html")))
+  (content-type (resource-response "public/index.html") "text/html"))
 
 (def handler
   "Finalized application Ring handler."
