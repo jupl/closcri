@@ -1,5 +1,5 @@
 (ns app.main
-  "Entry point for application."
+  "Entry point for main client-side application."
   (:require
    [common.config :as config]))
 
