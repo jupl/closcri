@@ -1,2 +1,2 @@
 {:require [common.devcards]
- :init-fns [common.devcards/main]}
+ :init-fns [common.devcards/-main]}
