@@ -4,7 +4,7 @@
    ;; Require any devcards you want to show
    [devcards.core :refer-macros [start-devcard-ui!]]))
 
-(defn main
+(defn- -main
   "Configure and bootstrap devcards."
   []
   (start-devcard-ui!))
