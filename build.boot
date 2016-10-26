@@ -33,11 +33,6 @@
   "Default directory for build output."
   "target")
 
-(defmacro when-task
-  "Allow a task if a condition is met."
-  [cond task]
-  `(if ~cond ~task identity))
-
 ;; Define default task options used across the board.
 (task-options! reload {:on-jsload 'common.reload/handle}
                serve {:dir target-path}
@@ -69,20 +64,20 @@
    p port PORT int  "The port number to start the server in."]
   (let [dev-closure-opts (assoc-in closure-opts
                                    [:closure-defines 'common.config/hot-reload]
-                                   server)]
-    (comp
-     (when-task server (serve :port port))
-     (when-task server (watch))
-     (when-task server (speak))
-     (when-task (not devcards) (sift :include #{#"^devcards"} :invert true))
-     (when-task server (reload))
-     (when-task server (cljs-devtools))
-     (cljs :source-map true
-           :optimizations :none
-           :compiler-options dev-closure-opts)
-     (sift :include #{#"\.cljs\.edn$" #"^\." #"/\."} :invert true)
-     (when-task (not server) (sift :include #{#"\.out"} :invert true))
-     (target))))
+                                   server)
+        tasks [(if server (serve :port port))
+               (if server (watch))
+               (if server (speak))
+               (if-not devcards (sift :include #{#"^devcards"} :invert true))
+               (if server (reload))
+               (if server (cljs-devtools))
+               (cljs :source-map true
+                     :optimizations :none
+                     :compiler-options dev-closure-opts)
+               (sift :include #{#"\.cljs\.edn$" #"^\." #"/\."} :invert true)
+               (if-not server (sift :include #{#"\.out"} :invert true))
+               (target)]]
+    (apply comp (remove nil? tasks))))
 
 (deftask devcards
   "Produce a build containing devcards only with optimizations."
