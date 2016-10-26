@@ -11,5 +11,4 @@
   "Base URL for application assets."
   (cond
     (identical? hot-reload true) "http://localhost:3000/"
-    (exists? js/__dirname) (str "file://" js/__dirname "/")
-    :else nil))
+    (exists? js/__dirname) (str "file://" js/__dirname "/")))

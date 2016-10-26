@@ -8,6 +8,7 @@
 (defn main
   "Configure and bootstrap Electron application."
   []
+  (set! *main-cli-fn* identity) ;; Required for a Node application
   (let [app (-> "electron" js/require .-app)
         exit-app #(.quit app)
         main-window (atom nil)
@@ -18,6 +19,3 @@
     (.on app "activate" open-main-window)
     (when-not osx
       (.on app "window-all-closed" exit-app))))
-
-;; Required for a Node application
-(set! *main-cli-fn* identity)
