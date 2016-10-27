@@ -48,7 +48,6 @@
                       :handler 'app.handler/handler
                       :reload true}
                target {:dir #{target-path}}
-               test-clj {:filters #{"(re-matches #\"-test$\" %)"}}
                test-cljs {:exit? true :js-env :phantom})
 
 (deftask build
