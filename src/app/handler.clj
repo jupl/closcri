@@ -1,7 +1,6 @@
 (ns app.handler
   "Application ring handler."
   (:require
-   [ring.middleware.defaults :refer [api-defaults wrap-defaults]]
    [ring.middleware.head :refer [head-response]]
    [ring.middleware.resource :refer [wrap-resource]]
    [ring.util.response :refer [content-type resource-response]]))
@@ -12,6 +11,4 @@
 
 (def handler
   "Finalized application Ring handler."
-  (-> (partial head-response default-response)
-      (wrap-resource "public")
-      (wrap-defaults api-defaults)))
+  (wrap-resource (partial head-response default-response) "public"))
