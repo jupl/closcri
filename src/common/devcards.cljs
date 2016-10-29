@@ -7,4 +7,5 @@
 (defn- -main
   "Configure and bootstrap devcards."
   []
+  (enable-console-print!)
   (start-devcard-ui!))
