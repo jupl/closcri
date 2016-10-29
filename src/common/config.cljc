@@ -5,12 +5,12 @@
    (defmacro when-production
      "Helper for evaluating code if (not) in production for tree shaking."
      [flag & body]
-     `(when (identical? common.config/production ~flag)
+     `(when (identical? production ~flag)
         ~@body)))
 
 #?(:cljs
    (defmacro when-hot-reload
      "Helper for evaluating code if there is (not) hot reload for tree shaking."
      [flag & body]
-     `(when (identical? common.config/hot-reload ~flag)
+     `(when (identical? hot-reload ~flag)
         ~@body)))
