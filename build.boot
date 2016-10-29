@@ -11,8 +11,7 @@
                  [org.clojure/clojurescript     "1.9.293"   :scope "test"]
                  [pandeiro/boot-http            "0.7.3"     :scope "test"]
                  [powerlaces/boot-cljs-devtools "0.1.2"     :scope "test"]
-                 [tolitius/boot-check           "0.1.3"     :scope "test"]
-                 [org.clojure/clojure           "1.8.0"]])
+                 [tolitius/boot-check           "0.1.3"     :scope "test"]])
 
 (require
  '[adzerk.boot-cljs              :refer [cljs]]
