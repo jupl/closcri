@@ -8,6 +8,7 @@
                  [camel-snake-kebab             "0.4.0"     :scope "test"]
                  [crisptrutski/boot-cljs-test   "0.2.1"     :scope "test"]
                  [devcards                      "0.2.2"     :scope "test"]
+                 [org.clojure/clojure           "1.8.0"     :scope "test"]
                  [org.clojure/clojurescript     "1.9.293"   :scope "test"]
                  [pandeiro/boot-http            "0.7.3"     :scope "test"]
                  [powerlaces/boot-cljs-devtools "0.1.2"     :scope "test"]
