@@ -12,6 +12,7 @@
                  [pandeiro/boot-http            "0.7.3"     :scope "test"]
                  [powerlaces/boot-cljs-devtools "0.1.2"     :scope "test"]
                  [tolitius/boot-check           "0.1.3"     :scope "test"]
+                 [hiccup                        "1.0.5"]
                  [org.clojure/clojure           "1.8.0"]
                  [org.immutant/immutant         "2.1.5"]
                  [ring/ring-core                "1.5.0"]
