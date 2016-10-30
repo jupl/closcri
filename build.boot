@@ -5,7 +5,6 @@
                  [adzerk/boot-reload            "0.4.13"    :scope "test"]
                  [binaryage/devtools            "0.8.2"     :scope "test"]
                  [binaryage/dirac               "0.7.4"     :scope "test"]
-                 [camel-snake-kebab             "0.4.0"     :scope "test"]
                  [crisptrutski/boot-cljs-test   "0.2.1"     :scope "test"]
                  [devcards                      "0.2.2"     :scope "test"]
                  [org.clojure/clojure           "1.8.0"     :scope "test"]

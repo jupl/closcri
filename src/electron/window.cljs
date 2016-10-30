@@ -1,8 +1,6 @@
 (ns electron.window
   "ClojureScript API for Electron browser windows."
   (:require
-   [camel-snake-kebab.core :refer [->camelCaseString]]
-   [camel-snake-kebab.extras :refer [transform-keys]]
    [common.config :as config]))
 
 (defn init-window
@@ -12,7 +10,6 @@
     (let [browser-window (-> "electron" js/require .-BrowserWindow)]
       (reset! window (->> args
                           (apply hash-map)
-                          (transform-keys ->camelCaseString)
                           clj->js
                           browser-window.))
       (.loadURL @window (str config/base-url url))
