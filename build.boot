@@ -33,7 +33,7 @@
   "target")
 
 ;; Define default task options used across the board.
-(task-options! reload {:on-jsload 'common.reload/handle}
+(task-options! reload {:on-jsload 'org.project.common.reload/handle}
                serve {:dir target-path}
                target {:dir #{target-path}}
                test-cljs {:exit? true :js-env :phantom})
@@ -41,9 +41,11 @@
 (deftask build
   "Produce a production build with optimizations."
   []
-  (let [compiler-options (assoc-in closure-opts
-                                   [:closure-defines 'common.config/production]
-                                   true)]
+  (let [prod-closure-opts
+        (assoc-in
+         closure-opts
+         [:closure-defines 'org.project.common.config/production]
+         true)]
     (comp
      (sift :include #{#"^devcards"} :invert true)
      (cljs :ids #{"index"}
@@ -52,7 +54,7 @@
                                                       :static-fns true}))
      (sift :include #{#"^index\.cljs\.edn$"} :invert true)
      (cljs :optimizations :advanced
-           :compiler-options compiler-options)
+           :compiler-options prod-closure-opts)
      (sift :include #{#"\.out" #"\.cljs\.edn$" #"^\." #"/\."} :invert true)
      (target))))
 
@@ -61,9 +63,11 @@
   [d devcards  bool "Include devcards in build."
    s server    bool "Start a local server with dev tools and live updates."
    p port PORT int  "The port number to start the server in."]
-  (let [dev-closure-opts (assoc-in closure-opts
-                                   [:closure-defines 'common.config/hot-reload]
-                                   server)
+  (let [dev-closure-opts
+        (assoc-in
+         closure-opts
+         [:closure-defines 'org.project.common.config/hot-reload]
+         server)
         tasks [(if server (serve :port port))
                (if server (watch))
                (if server (speak))
