@@ -7,6 +7,13 @@
 ;; If true then hot reloading is available
 #?(:cljs (goog-define hot-reload false))
 
+(def base-url
+  "Base URL where assets are located."
+  #?(:cljs (if production
+             (str "file://" js/__dirname "/")
+             (let [os (js/require "os")]
+               (str "http://" (.hostname os) ":3000/")))))
+
 (defmacro when-production
   "Helper for evaluating code if (not) in production for tree shaking."
   [flag & body]
