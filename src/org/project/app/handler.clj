@@ -1,4 +1,4 @@
-(ns app.handler
+(ns org.project.app.handler
   "Application ring handler."
   (:require
    [hiccup.page :refer [html5 include-css include-js]]
