@@ -33,7 +33,7 @@
   "target")
 
 ;; Define default task options used across the board.
-(task-options! reload {:on-jsload 'org.project.common.reload/handle}
+(task-options! reload {:on-jsload 'projectname.common.reload/handle}
                serve {:dir target-path}
                target {:dir #{target-path}}
                test-cljs {:exit? true :js-env :phantom})
@@ -44,7 +44,7 @@
   (let [prod-closure-opts
         (assoc-in
          closure-opts
-         [:closure-defines 'org.project.common.config/production]
+         [:closure-defines 'projectname.common.config/production]
          true)]
     (comp
      (sift :include #{#"^devcards"} :invert true)
@@ -61,7 +61,7 @@
   (let [dev-closure-opts
         (assoc-in
          closure-opts
-         [:closure-defines 'org.project.common.config/hot-reload]
+         [:closure-defines 'projectname.common.config/hot-reload]
          server)
         tasks [(if server (serve :port port))
                (if server (watch))
