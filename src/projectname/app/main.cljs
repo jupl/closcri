@@ -1,7 +1,7 @@
-(ns org.project.app.main
+(ns projectname.app.main
   "Entry point for main client-side application."
   (:require
-   [org.project.common.config :refer-macros [when-production]]))
+   [projectname.common.config :refer-macros [when-production]]))
 
 (defn- -main
   "Application entry point."
