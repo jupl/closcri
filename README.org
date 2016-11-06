@@ -24,6 +24,7 @@ This is a boilerplate project for developing client-side code using [[https://cl
 1. Follow the [[https://github.com/boot-clj/boot#install][instructions for installing Boot]]
 2. Clone/download this repository
 3. Start running tasks as described below in the [tasks section](#tasks).
+^{[[#closcri-clojurescript-boilerplate][Back to top]]}
 ** Project structure
 *** Overview
 #+BEGIN_EXAMPLE
@@ -34,18 +35,20 @@ closcri/
 │  ├─ devcards.cljs.edn # Devcards entry point
 │  ├─ devcards.html     # HTML to present Devcards
 │  └─ index.html        # HTML to present application
-├─ src/projectname/    # Project namespace
-│  ├─ app/             # Application namespace
-│  │  └─ main.cljs     # Application entry point
-│  └─ common/          # Shared code namespace
-│     ├─ config.cljc   # Configuration data/functions
-│     ├─ devcards.cljs # Devcards entry point
-│     └─ reload.cljs   # Helpers for hot reload
+├─ src/
+│  └─ projectname/        # Project namespace
+│     ├─ app/             # Application namespace
+│     │  └─ main.cljs     # Application entry point
+│     └─ common/          # Shared code namespace
+│        ├─ config.cljc   # Configuration data/functions
+│        ├─ devcards.cljs # Devcards entry point
+│        └─ reload.cljs   # Helpers for hot reload
 ├─ boot.properties # Boot properties
 └─ build.boot      # Tasks and dependencies for propect
 #+END_EXAMPLE
 *** Entry Points
 When JavaScript code is built, entry points are defined by the =.cljs.edn= file inside the =resources/= directory. The entry point files reference namespaces and functions in the =src/= directory.
+^{[[#closcri-clojurescript-boilerplate][Back to top]]}
 ** Tasks
 Tasks can be executed in the following manner:
 #+BEGIN_EXAMPLE
@@ -72,6 +75,7 @@ Run all CLJS tests once. If tests are defined with devcards, those are included.
 Run all CLJS tests once and run again on file changes. If tests are defined with devcards, those are included.
 *** =boot lint=
 Check and analyze source code.
+^{[[#closcri-clojurescript-boilerplate][Back to top]]}
 ** Project Resources
 *** Language
 **** [[https://clojurescript.org][ClojureScript]]
@@ -80,3 +84,4 @@ Check and analyze source code.
 **** [[https://github.com/boot-clj/boot-cljs-devtools][Boot CLJS DevTools]]
 *** Build Tools
 **** [[https://github.com/boot-clj/boot][Boot]]
+^{[[#closcri-clojurescript-boilerplate][Back to top]]}
