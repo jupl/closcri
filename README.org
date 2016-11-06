@@ -77,11 +77,11 @@ Run all CLJS tests once and run again on file changes. If tests are defined with
 Check and analyze source code.
 ^{[[#closcri-clojurescript-boilerplate][Back to top]]}
 ** Project Resources
-*** Language
-**** [[https://clojurescript.org][ClojureScript]]
-*** Development Tools
-**** [[https://github.com/bhauman/devcards][Devcards]]
-**** [[https://github.com/boot-clj/boot-cljs-devtools][Boot CLJS DevTools]]
-*** Build Tools
-**** [[https://github.com/boot-clj/boot][Boot]]
+- Language
+  - [[https://clojurescript.org][ClojureScript]]
+- Development Tools
+  - [[https://github.com/bhauman/devcards][Devcards]]
+  - [[https://github.com/boot-clj/boot-cljs-devtools][Boot CLJS DevTools]]
+- Build Tools
+  - [[https://github.com/boot-clj/boot][Boot]]
 ^{[[#closcri-clojurescript-boilerplate][Back to top]]}
