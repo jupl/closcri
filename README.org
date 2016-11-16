@@ -48,6 +48,7 @@ closcri/
 #+END_EXAMPLE
 *** Entry Points
 When JavaScript code is built, entry points are defined by the =.cljs.edn= file inside the =resources/= directory. The entry point files reference namespaces and functions in the =src/= directory.
+
 ^{[[#closcri-clojurescript-boilerplate][Back to top]]}
 ** Tasks
 Tasks can be executed in the following manner:
@@ -75,6 +76,7 @@ Run all CLJS tests once. If tests are defined with devcards, those are included.
 Run all CLJS tests once and run again on file changes. If tests are defined with devcards, those are included.
 *** =boot lint=
 Check and analyze source code.
+
 ^{[[#closcri-clojurescript-boilerplate][Back to top]]}
 ** Project Resources
 - Language
