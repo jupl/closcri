@@ -1,49 +1,105 @@
-* Closri
+#+HTML: <h1>Closcri <sub><sub><sub>ClojureScript Boilerplate</sub></sub></sub></h1>
+[[https://travis-ci.org/jupl/closcri][file:http://img.shields.io/travis/jupl/closcri.svg?label=travis]]
+[[https://jarkeeper.com/jupl/closcri][file:https://jarkeeper.com/jupl/closcri/status.svg]]
+
+** Table of Contents
+- [[#about][About]]
+- [[#prerequisites][Prerequisites]]
+- [[#getting-started][Getting Started]]
+- [[#project-structure][Project Structure]]
+- [[#tasks][Tasks]]
+- [[#project-resources][Project Resources]]
+
 ** About
-This is a template for creating and developing ClojureScript applications. The original intent of this project is for myself to get acquainted with the world of Clojure and ClojureScript and have a personal quick starter.
-** Variants
-- [[https://github.com/jupl/closcri][Base]]
-- [[https://github.com/jupl/closcri/tree/reagent][Reagent]]
-- [[https://github.com/jupl/closcri/tree/electron][Electron]]
-** Goals and Features
-- Baseline yet featureful environment for working with ClojureScript
-- Use [[http://boot-clj.com/][Boot]] for easy extensibility and customization
-- Development tools/setup out of the box
-  - Live reloading, hot loading
-  - Source maps
-  - REPL using [[https://github.com/binaryage/dirac][Dirac]]
-  - Testing and test watching
-  - [[https://github.com/bhauman/devcards][Devcards]] included (can be used with testing)
-- Standalone asset builds
-- Standalone devcards builds
-- Linting and code analyzing can be checked
-** Quick Start
+This is a boilerplate project for developing a server application using [[http://clojure.org/][Clojure]] and [[https://clojurescript.org/][ClojureScript]]. Flavors:
+- [[https://github.com/jupl/closcri/tree/master][ClojureScript]]
+- [[https://github.com/jupl/closcri/tree/electron][ClojureScript with Electron]]
+- [[https://github.com/jupl/closcri/tree/server][ClojureScript with Clojure Server]]
+
+^{[[#closcri-clojurescript-boilerplate][Back to top]]}
+
+** Prerequisites
+- JDK 1.7+
+  - [[http://openjdk.java.net/install/index.html][OpenJDK]]
+  - [[http://www.oracle.com/technetwork/java/javase/downloads/index.html][Oracle]]
+- [[http://boot-clj.com/][Boot]]
+
+^{[[#closcri-clojurescript-boilerplate][Back to top]]}
+
+** Getting Started
 1. Follow the [[https://github.com/boot-clj/boot#install][instructions for installing Boot]]
 2. Clone/download this repository
-3. Run one of tasks defined below. If this is your first time using this dependencies will automatically be downloaded.
-4. View project structure and customize =build.boot= to fit your needs.
-For example, you can run ~boot dev~ to start the development environment. From there you can visit =http://localhost:3000= to view the current build and =http://localhost:3000/devcards.html= to view devcards.
+3. Start running tasks as described below in the [tasks section](#tasks).
+
+^{[[#closcri-clojurescript-boilerplate][Back to top]]}
+
 ** Project structure
-| Directories/files             | Description                                                         |
-|-------------------------------+---------------------------------------------------------------------|
-| =resources/**=                | Static assets or files that map to a built file                     |
-| =resources/**/*.cljs.edn=     | [[https://github.com/adzerk-oss/boot-cljs/wiki/Usage#multiple-builds][Define]] a JS file that will be compiled from =src=                   |
-| =resources/devcards.cljs.edn= | Define that references files with devcards in them                  |
-| =src/**/*.cljs=               | ClojureScript source files                                          |
-| =src/**/*_test.cljs=          | ClojureScript test files                                            |
-| =src/app/config.cljs=         | Settings that can be set by the build tool using ~:closure-defines~ |
+*** Overview
+#+BEGIN_EXAMPLE
+closcri/
+├─ resources/              # Files to be included in build
+│  └─ public/              # Public files served
+│     ├─ assets/           # Static files
+│     ├─ app.cljs.edn      # Application entry point
+│     ├─ devcards.cljs.edn # Devcards entry point
+│     ├─ devcards.html     # HTML to present Devcards
+│     └─ favicon.ico       # Obligatory favicon
+├─ src/
+│  └─ projectname/        # Project namespace
+│     ├─ app/             # Application namespace
+│     │  ├─ handler.clj   # Ring handler for server application
+│     │  ├─ main.clj      # Server application entry point
+│     │  └─ main.cljs     # Client application entry point
+│     └─ common/          # Shared code namespace
+│        ├─ config.cljc   # Configuration data/functions
+│        ├─ devcards.cljs # Devcards entry point
+│        └─ reload.cljs   # Helpers for hot reload
+├─ boot.properties # Boot properties
+└─ build.boot      # Tasks and dependencies for propect
+#+END_EXAMPLE
+*** Entry Points
+When JavaScript code is built, entry points are defined by the =.cljs.edn= file inside the =resources/= directory. The entry point files reference namespaces and functions in the =src/= directory.
+
+^{[[#closcri-clojurescript-boilerplate][Back to top]]}
+
 ** Tasks
-*** ~boot dev [-d] [-p PORT]~
-Start the development server complete with live updates, source maps, REPL, and devcards. If you want to omit devcards use the ~boot -d~ option. To run the server under a different port number use the ~-p~ option. (example to run server in port 8000: ~boot dev -p 8000~)
-*** ~boot build~
-Create a production build with optimizations. Devcard related items are omitted.
-*** ~boot serve build [-p PORT]~
-Create a production build with optimizations, and serve on a static server. Devcard related items are omitted.
-*** ~boot devcards~
-Create a standalone build of devcards only, ready to share.
-*** ~boot test~
-Run all CLJS tests once. If tests are defined with devcards, those are included.
-*** ~boot watch test~
-Run all CLJS tests once and run again on file changes. If tests are defined with devcards, those are included.
-*** ~boot analyze~
+Tasks can be executed in the following manner:
+#+BEGIN_EXAMPLE
+boot [command]
+#+END_EXAMPLE
+Examples:
+#+BEGIN_EXAMPLE
+boot dev -p 8000
+boot build
+#+END_EXAMPLE
+*** =boot dev [-d] [-p PORT]=
+Create a development build with source maps and serve on a local server with live updates and a REPL.
+- If you want to include Devcards, use the =-d= option.
+- The =-p= option is also available to specify the port number.
+*** =boot build=
+Create a production build with optimizations.
+*** =boot devcards=
+Create a standalone build of devcards only.
+*** =boot test=
+Run all CLJ/CLJS tests once. If tests are defined with devcards, those are included.
+*** =boot watch test=
+Run all CLJ/CLJS tests once and run again on file changes. If tests are defined with devcards, those are included.
+*** =boot lint=
 Check and analyze source code.
+
+^{[[#closcri-clojurescript-boilerplate][Back to top]]}
+
+** Project Resources
+- Language
+  - [[http://clojure.org/][Clojure]]
+  - [[https://clojurescript.org][ClojureScript]]
+- Libraries
+  - [[http://immutant.org/][Immutant]]
+  - [[https://github.com/ring-clojure/ring][Ring]]
+- Development Tools
+  - [[https://github.com/bhauman/devcards][Devcards]]
+  - [[https://github.com/boot-clj/boot-cljs-devtools][Boot CLJS DevTools]]
+- Build Tools
+  - [[https://github.com/boot-clj/boot][Boot]]
+
+^{[[#closcri-clojurescript-boilerplate][Back to top]]}
