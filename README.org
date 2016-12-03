@@ -1,6 +1,7 @@
 #+HTML: <h1>Closcri <sub><sub><sub>ClojureScript Boilerplate</sub></sub></sub></h1>
 [[https://travis-ci.org/jupl/closcri][file:http://img.shields.io/travis/jupl/closcri.svg?label=travis]]
 [[https://jarkeeper.com/jupl/closcri][file:https://jarkeeper.com/jupl/closcri/status.svg]]
+
 ** Table of Contents
 - [[#about][About]]
 - [[#prerequisites][Prerequisites]]
@@ -8,23 +9,30 @@
 - [[#project-structure][Project Structure]]
 - [[#tasks][Tasks]]
 - [[#project-resources][Project Resources]]
+
 ** About
 This is a boilerplate project for developing client-side code using [[https://clojurescript.org/][ClojureScript]]. Flavors:
 - [[https://github.com/jupl/closcri/tree/master][ClojureScript]]
 - [[https://github.com/jupl/closcri/tree/electron][ClojureScript with Electron]]
 - [[https://github.com/jupl/closcri/tree/server][ClojureScript with Clojure Server]]
+
 ^{[[#closcri-clojurescript-boilerplate][Back to top]]}
+
 ** Prerequisites
 - JDK 1.7+
   - [[http://openjdk.java.net/install/index.html][OpenJDK]]
   - [[http://www.oracle.com/technetwork/java/javase/downloads/index.html][Oracle]]
 - [[http://boot-clj.com/][Boot]]
+
 ^{[[#closcri-clojurescript-boilerplate][Back to top]]}
+
 ** Getting Started
 1. Follow the [[https://github.com/boot-clj/boot#install][instructions for installing Boot]]
 2. Clone/download this repository
 3. Start running tasks as described below in the [tasks section](#tasks).
+
 ^{[[#closcri-clojurescript-boilerplate][Back to top]]}
+
 ** Project structure
 *** Overview
 #+BEGIN_EXAMPLE
@@ -50,6 +58,7 @@ closcri/
 When JavaScript code is built, entry points are defined by the =.cljs.edn= file inside the =resources/= directory. The entry point files reference namespaces and functions in the =src/= directory.
 
 ^{[[#closcri-clojurescript-boilerplate][Back to top]]}
+
 ** Tasks
 Tasks can be executed in the following manner:
 #+BEGIN_EXAMPLE
@@ -78,6 +87,7 @@ Run all CLJS tests once and run again on file changes. If tests are defined with
 Check and analyze source code.
 
 ^{[[#closcri-clojurescript-boilerplate][Back to top]]}
+
 ** Project Resources
 - Language
   - [[https://clojurescript.org][ClojureScript]]
@@ -86,4 +96,5 @@ Check and analyze source code.
   - [[https://github.com/boot-clj/boot-cljs-devtools][Boot CLJS DevTools]]
 - Build Tools
   - [[https://github.com/boot-clj/boot][Boot]]
+
 ^{[[#closcri-clojurescript-boilerplate][Back to top]]}
