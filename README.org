@@ -1,6 +1,7 @@
 #+HTML: <h1>Closcri <sub><sub><sub>ClojureScript Boilerplate</sub></sub></sub></h1>
 [[https://travis-ci.org/jupl/closcri][file:http://img.shields.io/travis/jupl/closcri.svg?label=travis]]
 [[https://jarkeeper.com/jupl/closcri][file:https://jarkeeper.com/jupl/closcri/status.svg]]
+
 ** Table of Contents
 - [[#about][About]]
 - [[#prerequisites][Prerequisites]]
@@ -8,6 +9,7 @@
 - [[#project-structure][Project Structure]]
 - [[#tasks][Tasks]]
 - [[#project-resources][Project Resources]]
+
 ** About
 This is a boilerplate project for developing desktop applications with [[http://electron.atom.io/][Electron]] using [[https://clojurescript.org/][ClojureScript]]. Flavors:
 - [[https://github.com/jupl/closcri/tree/master][ClojureScript]]
