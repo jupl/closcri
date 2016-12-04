@@ -1,5 +1,5 @@
 #+HTML: <h1>Closcri <sub><sub><sub>ClojureScript Boilerplate</sub></sub></sub></h1>
-[[https://travis-ci.org/jupl/closcri][file:http://img.shields.io/travis/jupl/closcri.svg?label=travis]]
+[[https://travis-ci.org/jupl/closcri][file:http://img.shields.io/travis/jupl/closcri/electron.svg?label=travis]]
 [[https://jarkeeper.com/jupl/closcri][file:https://jarkeeper.com/jupl/closcri/status.svg]]
 
 ** Table of Contents
