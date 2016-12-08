@@ -1,12 +1,12 @@
 (ns projectname.app.main
   "Entry point for application."
   (:require
-   [projectname.common.config :refer-macros [when-production]]))
+   [projectname.common.config :as config :include-macros true]))
 
 (defn- -main
   "Application entry point."
   []
-  (when-production false
+  (when-not (config/production?)
     (enable-console-print!))
 
   ;; Take out that nil and start writing!
