@@ -1,7 +1,7 @@
 (ns projectname.electron.main
   "Entry point for the main process."
   (:require
-   [projectname.common.config :refer-macros [production]]
+   [projectname.common.config :refer-macros [production?]]
    [projectname.electron.menu :refer [init-menu]]
    [projectname.electron.window :refer [init-window]]))
 
