@@ -13,4 +13,4 @@
 
 (defmacro hot-reload?
   "Helper for evaluating code if in hot reload for tree shaking."
-  [] `(identical? hot-reload false))
+  [] `(identical? hot-reload true))
