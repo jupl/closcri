@@ -8,6 +8,12 @@
   "Template to render menu in Electron."
   (atom []))
 
+(def develop-template
+  "Template to render Develop menu item."
+  {:label "Develop"
+   :submenu [{:role "toggledevtools"
+              :accelerator "F12"}]})
+
 (defn- osx-menu-item
   "Create additional menu item for OS X."
   []
@@ -24,17 +30,16 @@
                {:role "quit"}]}))
 
 (defn- dev-menu-item
-  "Create dditional menu item for development."
+  "Create additional menu item for development."
   []
   (when-not (production?)
-    (let [devcards-window (atom nil)
-          open-devcards #(init-window devcards-window "devcards.html")]
-      {:label "Develop"
-       :submenu [{:role "toggledevtools"
-                  :accelerator "F12"}
-                 {:label "Open Devcards"
-                  :accelerator "Shift+F12"
-                  :click open-devcards}]})))
+    (if (devcards?)
+      (let [devcards-window (atom nil)
+            open-devcards #(init-window devcards-window "devcards.html")]
+        (update-in develop-template [:submenu] conj {:label "Open Devcards"
+                                                     :accelerator "Shift+F12"
+                                                     :click open-devcards}))
+      develop-template)))
 
 (defn- update-menu!
   "Handler for when menu template is updated, which rebuilds and updates menu."
