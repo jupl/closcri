@@ -92,7 +92,7 @@
    (cljs :optimizations :advanced
          :compiler-options cards-closure-opts)
    (sift :include #{#"^assets/" #"^devcards(?!\.(cljs\.edn|out))"})
-   (target)))
+   (target))))
 
 (deftask lint
   "Check and analyze source code."
