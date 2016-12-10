@@ -5,7 +5,7 @@
                  [adzerk/boot-reload            "0.4.13"    :scope "test"]
                  [adzerk/boot-test              "1.1.2"     :scope "test"]
                  [binaryage/devtools            "0.8.3"     :scope "test"]
-                 [binaryage/dirac               "0.8.4"     :scope "test"]
+                 [binaryage/dirac               "0.8.5"     :scope "test"]
                  [crisptrutski/boot-cljs-test   "0.3.0"     :scope "test"]
                  [devcards                      "0.2.2"     :scope "test"]
                  [org.clojure/clojurescript     "1.9.293"   :scope "test"]
@@ -52,11 +52,10 @@
 (deftask build
   "Produce a production build with optimizations."
   []
-  (let [prod-closure-opts
-        (assoc-in
-         closure-opts
-         [:closure-defines 'projectname.common.config/production]
-         true)]
+  (let [{:keys [closure-defines]} closure-opts
+        new-defines (merge closure-defines
+                           {'projectname.common.config/production true})
+        prod-closure-opts (merge closure-opts {:closure-defines new-defines})]
     (comp
      (sift :include #{#"^public/devcards"} :invert true)
      (cljs :optimizations :advanced
@@ -74,11 +73,11 @@
   "Start server locally with dev tools and live updates."
   [d devcards  bool "Include devcards in build."
    p port PORT int  "The port number to start the server in."]
-  (let [dev-closure-opts
-        (assoc-in
-         closure-opts
-         [:closure-defines 'projectname.common.config/hot-reload]
-         true)
+  (let [{:keys [closure-defines]} closure-opts
+        new-defines (merge closure-defines
+                           {'projectname.common.config/devcards devcards
+                            'projectname.common.config/hot-reload true})
+        dev-closure-opts (merge closure-opts {:closure-defines new-defines})
         tasks [(serve :port port)
                (sift :include #{#"\.clj$"} :invert true)
                (watch)
