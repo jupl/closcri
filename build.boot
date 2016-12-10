@@ -96,10 +96,14 @@
 (deftask devcards
   "Produce a build containing devcards only with optimizations."
   []
+  (let [{:keys [closure-defines]} closure-opts
+        new-defines (merge closure-defines
+                           {'projectname.common.config/devcards true})
+        cards-closure-opts (merge closure-opts {:closure-defines new-defines})
   (comp
    (sift :include #{#"^public/(?!devcards).*\.cljs\.edn$"} :invert true)
    (cljs :optimizations :advanced
-         :compiler-options closure-opts)
+         :compiler-options cards-closure-opts)
    (sift :include #{#"^public/assets/"
                     #"^public/devcards(?!\.(cljs\.edn|out))"})
    (target)))
