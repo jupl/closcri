@@ -81,13 +81,13 @@
   (let [{:keys [closure-defines]} closure-opts
         new-defines (merge closure-defines
                            {'projectname.common.config/devcards true})
-        cards-closure-opts (merge closure-opts {:closure-defines new-defines})
+        cards-closure-opts (merge closure-opts {:closure-defines new-defines})]
   (comp
    (sift :include #{#"^(?!devcards).*\.cljs\.edn$"} :invert true)
    (cljs :optimizations :advanced
          :compiler-options cards-closure-opts)
    (sift :include #{#"^assets/" #"^devcards(?!\.(cljs\.edn|out))"})
-   (target)))
+   (target))))
 
 (deftask lint
   "Check and analyze source code."
