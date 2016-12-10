@@ -28,12 +28,10 @@
   []
   (when-not (production?)
     (let [devcards-window (atom nil)
-          open-devcards #(init-window devcards-window "devcards.html")
-          toggle-devtools #(.toggleDevTools %2)]
+          open-devcards #(init-window devcards-window "devcards.html")]
       {:label "Develop"
-       :submenu [{:label "Toggle Developer Tools"
-                  :accelerator "F12"
-                  :click toggle-devtools}
+       :submenu [{:role "toggledevtools"
+                  :accelerator "F12"}
                  {:label "Open Devcards"
                   :accelerator "Shift+F12"
                   :click open-devcards}]})))
@@ -45,12 +43,10 @@
         osx (= js/process.platform "darwin")
         pre-menu (if osx [(osx-menu-item)] [])
         post-menu (if (production?) [] [(dev-menu-item)])]
-    (as-> template x
-      (into pre-menu x)
-      (into x post-menu)
-      (clj->js x)
-      (.buildFromTemplate menu x)
-      (.setApplicationMenu menu x))))
+    (->> (concat pre-menu template post-menu)
+         clj->js
+         (.buildFromTemplate menu)
+         (.setApplicationMenu menu))))
 
 (defn init-menu
   "Intialize Electron menu and monitor for changes. Call this only once."
